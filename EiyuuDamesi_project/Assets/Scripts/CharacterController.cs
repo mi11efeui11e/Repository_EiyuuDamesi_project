@@ -5,7 +5,10 @@ using UnityEngine;
 public class NewBehaviourScript : MonoBehaviour
 {
 
-    
+    //HitBoxコライダー
+    public GameObject hitBox1;
+    public GameObject hitBox2;
+    public GameObject hitBox3;
 
     // キャラクターの基本設定
     public float walkSpeed = 5f;  // 通常の移動速度
@@ -47,10 +50,41 @@ public class NewBehaviourScript : MonoBehaviour
         int motion = animator.GetInteger("Motion");//パラメータ取得変数
         //idle == 0, walk == 1, run == 2, jump == 3, fall == 4, attack1 == 5, attack2 == 6, attack3 == 7,Roll == 8
 
-        if(Input.GetMouseButtonDown(0) && isGrounded && motion != 8 && motion != 5) //攻撃中の動き処理、回避後すぐに方向を変更可能にする
+        if (motion != 9 && motion !=10)
         {
-            if(motion != 6 && motion != 7) //攻撃の初段だけ、即座に向きを変えられるようにする。
+
+            if (Input.GetMouseButtonDown(0) && isGrounded && motion != 8 && motion != 5) //攻撃中の動き処理、回避後すぐに方向を変更可能にする
             {
+                if (motion != 6 && motion != 7) //攻撃の初段だけ、即座に向きを変えられるようにする。
+                {
+                    // 入力取得（WASD）
+                    float horizontal = Input.GetAxis("Horizontal"); // A, Dキー（または矢印キー左右）
+                    float vertical = Input.GetAxis("Vertical");     // W, Sキー（または矢印キー上下）
+
+                    // カメラの方向を基準に移動方向を計算（Y軸を無視して水平面上の方向のみ取得）
+                    Vector3 cameraForward = cameraTransform.forward;
+                    cameraForward.y = 0; // Y軸の影響を無視
+                    cameraForward.Normalize(); // 正規化
+
+                    Vector3 cameraRight = cameraTransform.right;
+                    cameraRight.y = 0; // Y軸の影響を無視
+                    cameraRight.Normalize(); // 正規化
+
+                    Vector3 move = (cameraForward * vertical + cameraRight * horizontal).normalized;
+
+                    if (move.magnitude > 0.1f)
+                    {
+                        // キャラクターを移動方向に向ける
+                        transform.rotation = Quaternion.LookRotation(move);
+                    }
+
+                }
+            }
+
+            //回避処理
+            if (Input.GetMouseButtonDown(1) && isGrounded && motion != 5 && motion != 6 && motion != 7 && motion != 8) //地上かつ攻撃以外の時、motion8中は前に一定動く
+            {
+
                 // 入力取得（WASD）
                 float horizontal = Input.GetAxis("Horizontal"); // A, Dキー（または矢印キー左右）
                 float vertical = Input.GetAxis("Vertical");     // W, Sキー（または矢印キー上下）
@@ -71,60 +105,32 @@ public class NewBehaviourScript : MonoBehaviour
                     // キャラクターを移動方向に向ける
                     transform.rotation = Quaternion.LookRotation(move);
                 }
-
             }
-        }
 
-        //回避処理
-        if (Input.GetMouseButtonDown(1) && isGrounded && motion != 5 && motion != 6 && motion != 7 && motion != 8) //地上かつ攻撃以外の時、motion8中は前に一定動く
-        {
-            
-                // 入力取得（WASD）
-                float horizontal = Input.GetAxis("Horizontal"); // A, Dキー（または矢印キー左右）
-                float vertical = Input.GetAxis("Vertical");     // W, Sキー（または矢印キー上下）
-
-                // カメラの方向を基準に移動方向を計算（Y軸を無視して水平面上の方向のみ取得）
-                Vector3 cameraForward = cameraTransform.forward;
-                cameraForward.y = 0; // Y軸の影響を無視
-                cameraForward.Normalize(); // 正規化
-
-                Vector3 cameraRight = cameraTransform.right;
-                cameraRight.y = 0; // Y軸の影響を無視
-                cameraRight.Normalize(); // 正規化
-
-                Vector3 move = (cameraForward * vertical + cameraRight * horizontal).normalized;
-
-                if (move.magnitude > 0.1f)
-                {
-                    // キャラクターを移動方向に向ける
-                    transform.rotation = Quaternion.LookRotation(move);
-                }
-        }
-
-        //攻撃、回避中はWASD移動は無効化する。
-        if (motion != 5 && motion != 6 && motion != 7 && motion != 8) 
-        {
-            MoveCharacter();  // 移動処理
-
-            // ジャンプ処理
-            if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+            //攻撃、回避中はWASD移動は無効化する。
+            if (motion != 5 && motion != 6 && motion != 7 && motion != 8)
             {
-                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // ジャンプ速度計算
+                MoveCharacter();  // 移動処理
+
+                // ジャンプ処理
+                if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
+                {
+                    velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity); // ジャンプ速度計算
+                }
             }
-        }
 
-        // 回避中と攻撃中の前進処理(速度はダッシュと同じ)
-        if (motion == 8 || hitFlag == true)
-        {
-            RollForward();
+            // 回避中と攻撃中の前進処理(速度はダッシュと同じ)
+            if (motion == 8 || hitFlag == true)
+            {
+                RollForward();
 
-        }
+            }
 
-        // 重力を適用
-        velocity.y += gravity * Time.deltaTime;
-        characterController.Move(velocity * Time.deltaTime);
+            // 重力を適用
+            velocity.y += gravity * Time.deltaTime;
+            characterController.Move(velocity * Time.deltaTime);
 
-        
+        } 
     }
 
     void MoveCharacter()
@@ -191,6 +197,31 @@ public class NewBehaviourScript : MonoBehaviour
     public void HitMove3()　//攻撃3段階目の前進を止めるタイミングのイベントメソッド
     {
         hitFlag = false;
+    }
+
+
+    //以下、攻撃時のhitBoxのon,offのためのイベント関数
+
+    public void Attack1HitBox()
+    {
+        hitBox1.SetActive(true);
+    }
+
+    public void Attack2HitBox()
+    {
+        hitBox2.SetActive(true);
+    }
+
+    public void Attack3HitBox()
+    {
+        hitBox3.SetActive(true);
+    }
+
+    public void EndHitBox()
+    {
+        hitBox1.SetActive(false);
+        hitBox2.SetActive(false);
+        hitBox3.SetActive(false);
     }
 
 }

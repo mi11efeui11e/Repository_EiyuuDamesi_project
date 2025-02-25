@@ -811,8 +811,22 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
+      - time: 0.4195804
+        functionName: Attack3HitBox
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.52
         functionName: HitMove3
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.5874126
+        functionName: EndHitBox
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
