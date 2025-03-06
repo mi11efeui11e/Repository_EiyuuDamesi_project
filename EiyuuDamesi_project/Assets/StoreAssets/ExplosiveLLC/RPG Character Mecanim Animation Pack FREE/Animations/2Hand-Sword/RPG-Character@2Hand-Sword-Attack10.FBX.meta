@@ -804,6 +804,13 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
+      - time: 0.17754444
+        functionName: PlayAttack3Sound
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       - time: 0.38000003
         functionName: Attack3Start
         data: 
@@ -825,7 +832,7 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 0.5874126
+      - time: 0.57400465
         functionName: EndHitBox
         data: 
         objectReferenceParameter: {instanceID: 0}

@@ -106,6 +106,7 @@ public class AnimetionController : MonoBehaviour
         if (motion != 9 && motion != 10)
         {
 
+
             if (Input.GetMouseButtonDown(1) && isGrounded && (motion != 5 && motion != 6 && motion != 7)) //‰ñ”ð
             {
                 animator.SetInteger("Motion", 8);
