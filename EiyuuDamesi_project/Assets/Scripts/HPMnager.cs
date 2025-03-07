@@ -33,7 +33,9 @@ public class HPManager : MonoBehaviour
     // **死亡時に HP を回復するメソッド**
     public void ResetHP()
     {
+        Debug.Log("HPリセット");
         currentHP = maxHP;
+        Debug.Log($"リセット後のHP: {currentHP}");
         DeathManager.instance.deathCheck = 0; //回復させたあと前シーンでの死亡判定を無くす。
     }
 }

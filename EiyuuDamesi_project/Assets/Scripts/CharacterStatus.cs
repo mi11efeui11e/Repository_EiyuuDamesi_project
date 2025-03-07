@@ -8,10 +8,19 @@ public class CharacterStatus : MonoBehaviour
 
     void Start()
     {
+
+        if (DeathManager.instance.deathCheck == 1) //もし前シーンで死亡していたら体力を引き継がずに回復
+        {
+            Debug.Log($"シーン開始時ステータス回復");
+            currentHP = maxHP;
+            Debug.Log($"ステータスリセット後のHP: {currentHP}");
+        }
+
         // 操作キャラなら `HPManager` から HP を取得
         if (isPlayer && HPManager.instance != null)
         {
             currentHP = HPManager.instance.GetHP();
+            Debug.Log($"リセット後のMから取得のHP: {currentHP}");
         }
         else
         {
