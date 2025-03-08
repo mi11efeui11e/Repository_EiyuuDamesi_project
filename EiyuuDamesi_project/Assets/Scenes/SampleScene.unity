@@ -1250,6 +1250,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shugoseki: {fileID: 934597226}
   fadeDuration: 1.5
+  hitAudioSource: {fileID: 0}
 --- !u!114 &934597228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1278,6 +1279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 100
   currentHP: 0
+  isPlayer: 0
 --- !u!54 &934597230
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1413,6 +1415,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 200
   currentHP: 0
+  isPlayer: 0
 --- !u!54 &935781311
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1457,6 +1460,9 @@ MonoBehaviour:
   damageImage: {fileID: 1970659122}
   fadeSpeed: 2
   maxAlpha: 0.5
+  nextSceneName: NextScene
+  fadeDuration: 1.5
+  fadePanel: {fileID: 0}
 --- !u!1 &963194225
 GameObject:
   m_ObjectHideFlags: 0
@@ -2423,6 +2429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shugoseki: {fileID: 1571145423}
   fadeDuration: 1.5
+  hitAudioSource: {fileID: 0}
 --- !u!114 &1571145430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2437,6 +2444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 100
   currentHP: 0
+  isPlayer: 0
 --- !u!136 &1571145431
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -2599,6 +2607,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shugoseki: {fileID: 1615616134}
   fadeDuration: 1.5
+  hitAudioSource: {fileID: 0}
 --- !u!114 &1615616140
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2613,6 +2622,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 250
   currentHP: 0
+  isPlayer: 0
 --- !u!54 &1615616141
 Rigidbody:
   m_ObjectHideFlags: 0
